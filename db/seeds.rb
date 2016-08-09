@@ -5,3 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Product.destroy_all
+
+url = "https://api.producthunt.com/v1/posts"
+headers = {
+  "Authorization" => "Bearer 307618982c4371c20c359d74e3e4b325472fd0ea4be6fab766944b31358265ec"
+}
+
+posts = JSON.parse(open(url, headers).read)["posts"]
+
+posts.each do |post|
+  Product.create!(name: post["name"],tagline: post["tagline"],url: post["discussion_url"])
+end
