@@ -1,6 +1,23 @@
-<div class="container text-center">
-<h1>Wagon Hunt</h1>
-<p>Find the best tech product</p>
-<p>Great product on the <%= @today %> </p>
-<%= link_to "All products", products_path, class: "btn btn-success" %>
+
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('<%= image_path "banner_wagon.jpg" %>');">
+  <div class="banner-content">
+    <h1>Wagon Hunt</h1>
+    <p>Find the best tech product</p>
+    <%= link_to "All products", products_path, class: "btn btn-success btn-lg" %>
+
+  </div>
+</div>
+
+<div class="container padded">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <%= link_to "Design", products_path(category: "design"), class: "card-category design" %>
+    </div>
+     <div class="col-xs-12 col-sm-4">
+      <%= link_to "Tech", products_path(category: "tech"), class: "card-category tech " %>
+    </div>
+     <div class="col-xs-12 col-sm-4">
+      <%= link_to "Education", products_path(category: "education"), class: "card-category education" %>
+    </div>
+  </div>
 </div>
