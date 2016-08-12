@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index, :show,]
   before_action :find_product, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -18,6 +19,7 @@ class ProductsController < ApplicationController
 
     def create
       @product = Product.new(product_params)
+      @product.user = current_user
       if @product.save
         redirect_to products_path
       else render :new
@@ -30,20 +32,27 @@ class ProductsController < ApplicationController
     end
 
     def update
-
-       if @product.update(product_params)
-        redirect_to products_path
-      else render :edit
-      end
+        if @product.user == current_user
+           @product.update(product_params)
+           redirect_to products_path
+         else
+           flash[:alert] = "Action impossible, ce produit n'est pas le votre."
+           render :edit
+         end
     end
 
     def destroy
-
-      @product.destroy
-      redirect_to products_path
+      if @product.user == current_user
+         @product.destroy(product_params)
+         redirect_to products_path
+       else
+         flash[:alert] = "Action impossible, ce produit n'est pas le votre."
+         render :edit
+       end
     end
 
     private
+
     def product_params
       params.require(:product).permit(:name, :url, :category, :tagline)
     end
@@ -51,4 +60,4 @@ class ProductsController < ApplicationController
     def find_product
        @product = Product.find(params[:id])
     end
-  end
+end
