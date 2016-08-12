@@ -12,11 +12,12 @@ User.destroy_all
 boris= User.create!(email: "boris@lewagon.com", password: "testtest")
 anthony= User.create!(email: "anthony@kiddygo.com", password: "testtest")
 
-Product.create!(user: boris, name: "Kudoz", url: "http://getkdoz.com", tagline: "Tinder for job", category: "tech")
+kudoz=Product.create!(user: boris, name: "Kudoz", url: "http://getkdoz.com", tagline: "Tinder for job", category: "tech")
 Product.create!(user: boris, name: "uslide", url: "http://uslide.Com", tagline: "Youtube sucks for education", category: "education")
-Product.create!(user: anthony, name: "freebbble", url: "http://freebbble.com", tagline: "marketplace for designer", category: "design")
+freebbble=Product.create!(user: anthony, name: "freebbble", url: "http://freebbble.com", tagline: "marketplace for designer", category: "design")
 
-
+kudoz.upvotes.create! user: boris
+freebbble.upvotes.create! user: anthony
 
 #require "open-uri"
 #require "json"
